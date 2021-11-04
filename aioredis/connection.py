@@ -700,6 +700,10 @@ class Connection:
     def _error_message(self, exception):
         # args for socket.error can either be (errno, "message")
         # or just "message"
+        if len(exception.args) == 0:
+            print("-- Redis error --")
+            print(f"Redis error. Exception details: {vars(exception)}.")
+            return f"Redis error. Exception details: {vars(exception)}."
         if len(exception.args) == 1:
             return f"Error connecting to {self.host}:{self.port}. {exception.args[0]}."
         else:
